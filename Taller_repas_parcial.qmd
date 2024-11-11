@@ -18,6 +18,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 library(tidyverse) #Poned aquí todas las librerías que utilicéis
 library(readr)
 library(MASS) # Per la distància de Mahalanobis
+library(ggplot2)
 ```
 
 Elige un tema que te interese (finanzas, medio ambiente, educación, cine, entre otros). En este taller, aplicarás los pasos del método científico (ver sección 1.1 de los apuntes de la asignatura) para abordar, con datos simulados, una problemática relacionada con el tema elegido. Deberás presentar un informe de tu proyecto siguiendo la estructura detallada en el documento “Recomendaciones para escribir informes de proyectos en Estadística,” que se encuentra en la sección "Práctica" de la página del curso en Aula Digital.
@@ -26,7 +27,7 @@ Elige un tema que te interese (finanzas, medio ambiente, educación, cine, entre
 El objetivo general de este trabajo es estudiar algunas características físicas y psicològicas que afectan a la capacidad de anotar puntos de jugadores de voleibol.
 
 Los objetivos más específicos son:
- 1. Comprobar si hay una relación con el tiempo de horas dedicadas al entrenamiento afecta al salto máximo vertical o al rentimiento en el partido (evaluado en puntos anotados).
+ 1. Comprobar si hay una relación con el tiempo de horas dedicadas al entrenamiento afecta al salto máximo vertical o al rendimiento en el partido (evaluado en puntos anotados).
  2. Estudiar la relación de la motivación, la experiencia o el compromiso con la capacidad de puntuar en un partido.
 
 3. Verificar si existen diferencias en el rendimiento entre los jugadores de voleibol en funcion de factores como el sexo o la posición que juegan.
@@ -55,11 +56,11 @@ Z2: gènero "Masculino" o "Femenino" (són las dos categorías que existen en el
 ```{r}
 
 # Definir la media y la matriz de covarianza para las variables cuantitativas
-media <- c(15, 300, 3, 12)  # Medias para horas_entrenamiento, altura_ataque, velocidad, puntos_anotados
-covarianza <- matrix(c(10,  1,  1.5, 2,
+media <- c(15, 300, 3, 15)  # Medias para horas_entrenamiento, altura_ataque, velocidad, puntos_anotados
+covarianza <- matrix(c(10,  1,  1.5, 4,
                        1,   20, 1.2, 1.5,
                        1.5, 1.2, 0.5, 1,
-                       2,   1.5, 1,  15), 
+                       4,   1.5, 1, 15), 
                      nrow = 4, ncol = 4)
 
 # Generar los datos simulados
@@ -99,7 +100,115 @@ Los objetivos más específicos son:
 
 
 
-1. Vamos a hacer un contraste de correlación entre la variable salto veritcal (X2) y el tiempo de horas dedicadas al entrenamiento  (X1).
+1. Vamos a hacer un contraste de correlación entre la variable salto veritcal (X2) y el tiempo de horas dedicadas al entrenamiento  (X1). Farem un test de Pearson, ja que tenim dues variables continues i segueixen una distribució normal per construcció, i volem veure si hi ha  una relació lineal. 
+
+```{r}
+# Calcular la media de altura de ataque por cada rango de horas de entrenamiento
+media_altura_por_rango <- rendimiento_voleibol %>%
+  group_by(horas_rango) %>%
+  summarise(media_altura = mean(altura_ataque))
+
+# Crear un nuevo factor de rangos para las horas de entrenamiento
+rendimiento_voleibol$horas_rango <- cut(rendimiento_voleibol$horas_entrenamiento, 
+                                        breaks = c(0, 3, 6, 9, 12, 15, 18, 21, 24, 27), 
+                                         labels = c("0-3", "3-6", "6-9", "9-12", "12-15", "15-18", "18-21", "21-24", "24-28"))
+
+# Crear el gráfico de barras
+ggplot(media_altura_por_rango, aes(x = horas_rango, y = media_altura, fill = horas_rango)) +
+  geom_bar(stat = "identity") +  # Barra de altura proporcional a la media de puntos
+  labs(title = "Altura de ataque por rango de horas de entrenamiento",
+       x = "Horas de Entrenamiento ", y = "Altura de ataque") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")  + theme(legend.position = "none") + 
+  ylim(290,320)
+  
+
+```
+
+```{r}
+cor_test1 <- cor.test(rendimiento_voleibol$horas_entrenamiento, rendimiento_voleibol$altura_ataque)
+
+# Mostrar el resultado
+print(cor_test1)
+```
+
+No podemos concluir que haya una correlación entre el total de horas entradas a la  semana y la altura de ataque. Puede ser debido a que tiene que ver con la altura del jugador/a, con la genética u otros factores externos. De hecho, como r = 0.0464 indica que casi no hay correlación positiva.
+
+
+Ahora las horas de entrenamiento con el total de puntos por partido:
+
+
+```{r}
+
+# Calcular la media de puntos anotados por cada rango de horas de entrenamiento
+media_puntos_por_rango <- rendimiento_voleibol %>%
+  group_by(horas_rango) %>%
+  summarise(media_puntos = mean(puntos_anotados))
+
+# Crear el gráfico de barras
+ggplot(media_puntos_por_rango, aes(x = horas_rango, y = media_puntos, fill = horas_rango)) +
+  geom_bar(stat = "identity") +  # Barra de altura proporcional a la media de puntos
+  labs(title = "Puntos por rango de horas de entrenamiento",
+       x = "Horas de Entrenamiento ", y = "Puntos por partido") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")  + theme(legend.position = "none")
+
+```
+```{r}
+cor_test2 <- cor.test(rendimiento_voleibol$horas_entrenamiento, rendimiento_voleibol$puntos_anotados)
+
+# Mostrar el resultado
+print(cor_test2)
+```
+En este caso vemos que el p-valor es menor a 0.05, por tanto podemos rechazar la hipotesis nula. Es decir, si que hay una correlación entre las horas entrenadas y el total de puntos en un partido. Aunque cabe decir que la correlación no es demasiado fuerte ya que r = 0.278.
+
+
+
+3. Para saber si hay diferencias entre la cantidad de puntos que hace cada jugador segun su posición, haremos una Anova.
+```{r}
+# Realizamos el ANOVA para comparar los puntos anotados en función de la posición
+anova_resultado <- aov(puntos_anotados ~ posicion, data = rendimiento_voleibol)
+
+# Ver el resumen de los resultados del ANOVA
+summary(anova_resultado)
+
+```
+Observamos que el p-valor es alto, por lo tanto, aceptamos la hipotsesis nula:  Las medias de puntos anotados son iguales para todas las posiciones. Es decir, el total de puntos que hace un jugador por partido no depende de la posición.
+
+```{r}
+# Crear un boxplot para visualizar las diferencias de puntos anotados según la posición
+ggplot(rendimiento_voleibol, aes(x = posicion, y = puntos_anotados, fill = posicion)) +
+  geom_boxplot() +
+  labs(title = "Distribución de Puntos Anotados por Posición",
+       x = "Posición",
+       y = "Puntos Anotados") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")  # Cambia el esquema de colores
+```
+
+Vamos a estudiar si el total de puntos que hace un jugador, depende de la categoría que juega (masculino o femenino), para así poder concluir el total de errores y/o bloqueos que se cometen en cada partido dependiendo de la categoria:
+
+```{r}
+# Crear un boxplot para visualizar las diferencias de puntos anotados según la posición
+ggplot(rendimiento_voleibol, aes(x = sexo, y = puntos_anotados, fill = sexo)) +
+  geom_boxplot() +
+  labs(title = "Distribución de Puntos Anotados por categoría",
+       x = "Categoría",
+       y = "Puntos Anotados") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")  # Cambia el esquema de colores
+```
+
+```{r}
+# Realizamos el ANOVA para comparar los puntos anotados en función de la categoría (sexo)
+anova_resultado <- aov(puntos_anotados ~ sexo, data = rendimiento_voleibol)
+
+# Ver el resumen de los resultados del ANOVA
+summary(anova_resultado)
+
+```
+
+
 
 Para las variables cuantitativas de tu base de datos, calcula e interpreta la información que proporciona la varianza generalizada y la varianza total.
 
