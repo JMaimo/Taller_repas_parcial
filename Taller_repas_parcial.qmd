@@ -23,42 +23,62 @@ library(MASS) # Per la distància de Mahalanobis
 Elige un tema que te interese (finanzas, medio ambiente, educación, cine, entre otros). En este taller, aplicarás los pasos del método científico (ver sección 1.1 de los apuntes de la asignatura) para abordar, con datos simulados, una problemática relacionada con el tema elegido. Deberás presentar un informe de tu proyecto siguiendo la estructura detallada en el documento “Recomendaciones para escribir informes de proyectos en Estadística,” que se encuentra en la sección "Práctica" de la página del curso en Aula Digital.
 
 ### Primer paso: 
+El objetivo general de este trabajo es estudiar algunas características físicas y psicològicas que afectan a la capacidad de anotar puntos de jugadores de voleibol.
 
-Define los objetivos de tu trabajo: Describe la hipótesis general que deseas investigar y especifica los objetivos específicos necesarios para validar o refutar dicha hipótesis.
+Los objetivos más específicos son:
+ 1. Comprobar si hay una relación con el tiempo de horas dedicadas al entrenamiento afecta al salto máximo vertical o al rentimiento en el partido (evaluado en puntos anotados).
+ 2. Estudiar la relación de la motivación, la experiencia o el compromiso con la capacidad de puntuar en un partido.
+
+3. Verificar si existen diferencias en el rendimiento entre los jugadores de voleibol en funcion de factores como el sexo o la posición que juegan.
 
 ### Segundo paso:
 
-Define las variables clave para probar tu hipótesis. Asegúrate de incluir al menos cuatro variables cuantitativas, tres ordinales y dos nominales. Indica las unidades de medida para las variables cuantitativas y los niveles para las variables nominales y ordinales. A continuación, simula los datos en R de acuerdo a las siguientes pautas:
+Definiremos 4 variables quantitativas:
+X1: horas de entrenamiento semanal.
+X2: altura máxima en centimetros alcanzada en un salto veritcal.
+X3: velocidad del jugador (segundos en recorrer 20 segundos).
+X4: numero de puntuntos anotados en un partido.
+
+3 ordinales (serà una escala del 1 al 5 con niveles desde "Muy bajo" a "Muy alto"):
+V1: nivel de compromiso.
+V2: nivel de motivación.
+V3: nivel de experiencia
+
+Y finalmente 2 variables ordinales: 
+Z1: Posición.
+Z2: gènero "Masculino" o "Femenino" (són las dos categorías que existen en el mundo del voleibol).
+
 
 * **Tabla 1**: Genera una tabla con al menos 100 observaciones y las variables definidas en el paso anterior, asegurate que las variables cuantitativas sigan una distribución normal multivariante. A continuación, te presento un ejemplo que simula datos de una encuesta aplicada a estudiantes de secundaria sobre sus hábitos de estudio y rendimiento y que incluye información sobre su contexto de vida, como horas de sueño y tiempo de traslado a la escuela. Este ejemplo no lo debes usar en tu proyecto, solo es para darte una idea de lo que te pido hacer.
 
-```{r}
-library(MASS)
 
-media <- c(10, 7, 30, 5)  # Medias de horas_estudio, horas_sueno, tiempo_traslado, promedio_calificaciones
-covarianza <- matrix(c(15, 2, 5, 1,
-                       2, 6, 3, 1,
-                       5, 3, 20, 2,
-                       1, 1, 2, 1.5), 
+```{r}
+
+# Definir la media y la matriz de covarianza para las variables cuantitativas
+media <- c(15, 300, 3, 12)  # Medias para horas_entrenamiento, altura_ataque, velocidad, puntos_anotados
+covarianza <- matrix(c(10,  1,  1.5, 2,
+                       1,   20, 1.2, 1.5,
+                       1.5, 1.2, 0.5, 1,
+                       2,   1.5, 1,  15), 
                      nrow = 4, ncol = 4)
 
+# Generar los datos simulados
+set.seed(21)
+datos_numericos <- mvrnorm(100, mu = media, Sigma = covarianza)
 
-set.seed(42)
-datos_numericos <- mvrnorm(150, mu = media, Sigma = covarianza)
-
-# Limitar y ajustar valores de promedio_calificaciones a escala 1-10
-datos_numericos[,4] <- pmin(pmax(round(datos_numericos[,4], 1), 1), 10)
-
-# Tabla 1 con los datos 
-rendimiento_estudiantil <- data.frame(
-  horas_estudio = round(datos_numericos[,1], 1),
-  horas_sueno = round(datos_numericos[,2], 1),
-  tiempo_traslado = round(datos_numericos[,3]),
-  promedio_calificaciones = datos_numericos[,4],
-  tipo_escuela = sample(c("Pública", "Privada"), 150, replace = TRUE),
-  nivel_interes = ordered(sample(1:5, 150, replace = TRUE), labels = c("Muy Bajo", "Bajo", "Medio", "Alto", "Muy Alto")),
-  habito_lectura = ordered(sample(1:5, 150, replace = TRUE), labels = c("Nada", "Poco", "Regular", "Frecuente", "Muy Frecuente"))
+# Tabla con datos 
+rendimiento_voleibol <- data.frame(
+  horas_entrenamiento = round(datos_numericos[,1], 1),
+  altura_ataque = round(datos_numericos[,2], 1),
+  velocidad = round(datos_numericos[,3], 1),
+  puntos_anotados = round(datos_numericos[,4]),
+  posicion = sample(c("Receptor", "Opuesto", "Central"), 100, replace = TRUE),
+  sexo = sample(c("Masculino", "Femenino"), 100, replace = TRUE),
+  nivel_compromiso = ordered(sample(1:5, 100, replace = TRUE), labels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto")),
+  nivel_motivacion = ordered(sample(1:5, 100, replace = TRUE), labels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto")),
+  nivel_experiencia = ordered(sample(1:5, 100, replace = TRUE), labels = c("Novato", "Bajo", "Intermedio", "Alto", "Muy experimentado"))
 )
+rendimiento_voleibol
 ```
 
 
@@ -71,8 +91,19 @@ Une ambas tablas utilizando un identificador simulado en una base de datos únic
 ### Tercer paso
 
 Realiza un análisis descriptivo multivariantes de tu base de datos de acuerdo a los objetivos de tu trabajo. Describe lo observado en el contexto del problema. 
+Los objetivos más específicos son:
+ 1. Comprobar si hay una relación con el tiempo de horas dedicadas al entrenamiento afecta al salto máximo vertical o al rentimiento en el partido (evaluado en puntos anotados).
+ 2. Estudiar la relación de la motivación, la experiencia o el compromiso con la capacidad de puntuar en un partido.
 
-Para las variables cuantitativas de tu base de datos, calcula e interpreta la información que proporciona la varianza generalizada y la varianza total
+3. Verificar si existen diferencias en el rendimiento entre los jugadores de voleibol en funcion de factores como el sexo o la posición que juegan.
+
+
+
+1. Vamos a hacer un contraste de correlación entre la variable salto veritcal (X2) y el tiempo de horas dedicadas al entrenamiento  (X1).
+
+Para las variables cuantitativas de tu base de datos, calcula e interpreta la información que proporciona la varianza generalizada y la varianza total.
+
+
 
 ### Cuarto paso
 
