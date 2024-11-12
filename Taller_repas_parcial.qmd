@@ -19,6 +19,9 @@ library(tidyverse) #Poned aquí todas las librerías que utilicéis
 library(readr)
 library(MASS) # Per la distància de Mahalanobis
 library(ggplot2)
+library(dplyr)
+library(ggmosaic)
+library(Hotelling)
 ```
 
 Elige un tema que te interese (finanzas, medio ambiente, educación, cine, entre otros). En este taller, aplicarás los pasos del método científico (ver sección 1.1 de los apuntes de la asignatura) para abordar, con datos simulados, una problemática relacionada con el tema elegido. Deberás presentar un informe de tu proyecto siguiendo la estructura detallada en el documento “Recomendaciones para escribir informes de proyectos en Estadística,” que se encuentra en la sección "Práctica" de la página del curso en Aula Digital.
@@ -58,9 +61,9 @@ Z2: gènero "Masculino" o "Femenino" (són las dos categorías que existen en el
 # Definir la media y la matriz de covarianza para las variables cuantitativas
 media <- c(15, 300, 3, 15)  # Medias para horas_entrenamiento, altura_ataque, velocidad, puntos_anotados
 covarianza <- matrix(c(10,  1,  1.5, 4,
-                       1,   20, 1.2, 1.5,
+                       1,   20, 1.2, 3,
                        1.5, 1.2, 0.5, 1,
-                       4,   1.5, 1, 15), 
+                       4,   3, 1, 15), 
                      nrow = 4, ncol = 4)
 
 # Generar los datos simulados
@@ -77,9 +80,10 @@ rendimiento_voleibol <- data.frame(
   sexo = sample(c("Masculino", "Femenino"), 100, replace = TRUE),
   nivel_compromiso = ordered(sample(1:5, 100, replace = TRUE), labels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto")),
   nivel_motivacion = ordered(sample(1:5, 100, replace = TRUE), labels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto")),
-  nivel_experiencia = ordered(sample(1:5, 100, replace = TRUE), labels = c("Novato", "Bajo", "Intermedio", "Alto", "Muy experimentado"))
+  nivel_experiencia = ordered(sample(1:5, 100, replace = TRUE), labels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"))
 )
-rendimiento_voleibol
+rendimiento_voleibol <- as_tibble(rendimiento_voleibol)
+
 ```
 
 
@@ -100,18 +104,20 @@ Los objetivos más específicos son:
 
 
 
-1. Vamos a hacer un contraste de correlación entre la variable salto veritcal (X2) y el tiempo de horas dedicadas al entrenamiento  (X1). Farem un test de Pearson, ja que tenim dues variables continues i segueixen una distribució normal per construcció, i volem veure si hi ha  una relació lineal. 
+1. Vamos a hacer un contraste de correlación entre la variable salto veritcal (X2) y el tiempo de horas dedicadas al entrenamiento  (X1). Haremos un test de Pearson ya que teniemos dos variables contínuas que siguen una distribución normal (por construcción) y veremos si existe una correlación lineal.  
 
 ```{r}
-# Calcular la media de altura de ataque por cada rango de horas de entrenamiento
-media_altura_por_rango <- rendimiento_voleibol %>%
-  group_by(horas_rango) %>%
-  summarise(media_altura = mean(altura_ataque))
 
 # Crear un nuevo factor de rangos para las horas de entrenamiento
 rendimiento_voleibol$horas_rango <- cut(rendimiento_voleibol$horas_entrenamiento, 
                                         breaks = c(0, 3, 6, 9, 12, 15, 18, 21, 24, 27), 
                                          labels = c("0-3", "3-6", "6-9", "9-12", "12-15", "15-18", "18-21", "21-24", "24-28"))
+
+# Calcular la media de altura de ataque por cada rango de horas de entrenamiento
+media_altura_por_rango <- rendimiento_voleibol %>%
+  group_by(horas_rango) %>%
+  summarise(media_altura = mean(altura_ataque))
+
 
 # Crear el gráfico de barras
 ggplot(media_altura_por_rango, aes(x = horas_rango, y = media_altura, fill = horas_rango)) +
@@ -119,17 +125,21 @@ ggplot(media_altura_por_rango, aes(x = horas_rango, y = media_altura, fill = hor
   labs(title = "Altura de ataque por rango de horas de entrenamiento",
        x = "Horas de Entrenamiento ", y = "Altura de ataque") +
   theme_minimal() +
-  scale_fill_brewer(palette = "Set3")  + theme(legend.position = "none") + 
-  ylim(290,320)
-  
+  scale_fill_brewer(palette = "Set3")  + theme(legend.position = "none") 
+
+
 
 ```
 
+
+
 ```{r}
+
 cor_test1 <- cor.test(rendimiento_voleibol$horas_entrenamiento, rendimiento_voleibol$altura_ataque)
 
 # Mostrar el resultado
 print(cor_test1)
+
 ```
 
 No podemos concluir que haya una correlación entre el total de horas entradas a la  semana y la altura de ataque. Puede ser debido a que tiene que ver con la altura del jugador/a, con la genética u otros factores externos. De hecho, como r = 0.0464 indica que casi no hay correlación positiva.
@@ -139,28 +149,101 @@ Ahora las horas de entrenamiento con el total de puntos por partido:
 
 
 ```{r}
-
-# Calcular la media de puntos anotados por cada rango de horas de entrenamiento
-media_puntos_por_rango <- rendimiento_voleibol %>%
-  group_by(horas_rango) %>%
-  summarise(media_puntos = mean(puntos_anotados))
-
-# Crear el gráfico de barras
-ggplot(media_puntos_por_rango, aes(x = horas_rango, y = media_puntos, fill = horas_rango)) +
-  geom_bar(stat = "identity") +  # Barra de altura proporcional a la media de puntos
-  labs(title = "Puntos por rango de horas de entrenamiento",
-       x = "Horas de Entrenamiento ", y = "Puntos por partido") +
-  theme_minimal() +
-  scale_fill_brewer(palette = "Set3")  + theme(legend.position = "none")
-
+ggplot(rendimiento_voleibol, aes(x = horas_entrenamiento, y = puntos_anotados)) +
+  geom_point(alpha = 0.6) +  # Puntos para observaciones individuales
+  stat_smooth(method = "glm", method.args = list(family = "poisson"), 
+              color = "blue", se = TRUE) +  # Línea de predicción del modelo de Poisson
+  labs(title = "Relación entre Horas de Entrenamiento y Puntos Anotados",
+       x = "Horas de Entrenamiento",
+       y = "Puntos Anotados") +
+  theme_minimal()
 ```
+
+Si interpretamos la gráfica, vemos como más horas de entrenamiento hay, más puntos parecen anotar, por tanto, podemos intuir que si que hay una correlación entre las dos variables.
 ```{r}
-cor_test2 <- cor.test(rendimiento_voleibol$horas_entrenamiento, rendimiento_voleibol$puntos_anotados)
 
-# Mostrar el resultado
-print(cor_test2)
+modelo_poisson <- glm(puntos_anotados ~ horas_entrenamiento, family = "poisson", data = rendimiento_voleibol)
+
+# Resumen del modelo
+summary(modelo_poisson)
+
 ```
-En este caso vemos que el p-valor es menor a 0.05, por tanto podemos rechazar la hipotesis nula. Es decir, si que hay una correlación entre las horas entrenadas y el total de puntos en un partido. Aunque cabe decir que la correlación no es demasiado fuerte ya que r = 0.278.
+En este caso vemos que el p-valor es menor a 0.05, por tanto podemos rechazar la hipotesis nula. Es decir, sí que hay una correlación entre las horas entrenadas y el total de puntos en un partido. Aunque cabe decir que la correlación no es demasiado fuerte ya que r = 0.278.
+
+
+
+2. Vamos a utilizar la prueba de correlación de Spearman para evaluar la relación entre las tres variables ordinales con la variable  de puntos anotados por partido (que podemos considerar continua).
+
+Asignamos valores numericos a las variables ordinales:
+
+```{r}
+rendimiento_voleibol
+glimpse(rendimiento_voleibol) 
+
+rendimiento_voleibol <- rendimiento_voleibol %>%
+  mutate(
+    nivel_motivacion = factor(nivel_motivacion, levels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
+                              labels = c(1, 2, 3, 4, 5)),
+    nivel_experiencia = factor(nivel_experiencia, levels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
+                               labels = c(1, 2, 3, 4, 5)),
+    nivel_compromiso = factor(nivel_compromiso, levels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
+                              labels = c(1, 2, 3, 4, 5)))
+  
+rendimiento_voleibol <- rendimiento_voleibol %>%
+  mutate(
+    nivel_motivacion = as.numeric(nivel_motivacion),
+    nivel_experiencia = as.numeric(nivel_experiencia),
+    nivel_compromiso = as.numeric(nivel_compromiso)
+  )
+
+rendimiento_voleibol <- as_tibble(rendimiento_voleibol)
+
+glimpse(rendimiento_voleibol) 
+
+```
+
+
+
+```{r}
+# Pruebas de correlación de Spearman entre variables ordinales y puntuación
+cor_motivacion_puntos <- cor.test(rendimiento_voleibol$nivel_motivacion, rendimiento_voleibol$puntos_anotados, method = "spearman")
+cor_experiencia_puntos <- cor.test(rendimiento_voleibol$nivel_experiencia, rendimiento_voleibol$puntos_anotados, method = "spearman")
+cor_compromiso_puntos <- cor.test(rendimiento_voleibol$nivel_compromiso, rendimiento_voleibol$puntos_anotados, method = "spearman")
+
+# Resultados
+print(cor_motivacion_puntos)
+print(cor_experiencia_puntos)
+print(cor_compromiso_puntos)
+
+```
+
+
+
+```{r}
+# Convertir las tres columnas en un formato largo
+rendimiento_long <- rendimiento_voleibol %>%
+  gather(key = "variable", value = "nivel", 
+         nivel_motivacion, nivel_experiencia, nivel_compromiso)
+
+# Crear el gráfico de barras apiladas con facetas
+ggplot(rendimiento_long) +
+  geom_bar(aes(x = nivel, fill = sexo), position = "stack") +
+  facet_wrap(~variable, scales = "free_x") +  # Facetas para cada una de las tres variables
+  labs(
+    x = "Nivel",
+    y = "Número de Jugadores",
+    fill = "Sexo",
+    title = "Distribución de las características dependido del sexo"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+```
+
+
+
+
+
 
 
 
@@ -175,6 +258,7 @@ summary(anova_resultado)
 ```
 Observamos que el p-valor es alto, por lo tanto, aceptamos la hipotsesis nula:  Las medias de puntos anotados son iguales para todas las posiciones. Es decir, el total de puntos que hace un jugador por partido no depende de la posición.
 
+Hagamos un gráfico para verlo explícitamente:
 ```{r}
 # Crear un boxplot para visualizar las diferencias de puntos anotados según la posición
 ggplot(rendimiento_voleibol, aes(x = posicion, y = puntos_anotados, fill = posicion)) +
@@ -218,6 +302,41 @@ Para las variables cuantitativas de tu base de datos, calcula e interpreta la in
 
 Selecciona una de las variables no cuantitativas y modelízala con una distribución multinomial, debes estimar sus parámetros. Utiliza el modelo para calcular la probabilidad de que ocurra un evento de interés en una muestra de tamaño 20, relevante para tu problema.
 
+
+```{r}
+
+# Calculamos las frecuencias relativas para la variable 'posicion'
+tabla_posicion <- rendimiento_voleibol %>%
+  count(posicion) %>%
+  mutate(probabilidad = n / sum(n))
+
+# Ver los parámetros estimados (probabilidades)
+tabla_posicion
+
+# Ahora, modelamos con una distribución multinomial usando las probabilidades estimadas
+# Probabilidades estimadas de las categorías
+prob_receptor <- tabla_posicion$probabilidad[tabla_posicion$posicion == "Receptor"]
+prob_opuesto <- tabla_posicion$probabilidad[tabla_posicion$posicion == "Opuesto"]
+prob_central <- tabla_posicion$probabilidad[tabla_posicion$posicion == "Central"]
+
+# Tamaño de la muestra
+tamano_muestra <- 20
+
+# Evento de interés: supongamos que nos interesa la probabilidad de tener 10 'Receptor', 5 'Opuesto' y 5 'Central' en una muestra de 20 jugadores
+evento_interes <- c(10, 5, 5)
+
+# Aplicamos la fórmula de la distribución multinomial para calcular la probabilidad
+probabilidad_evento <- dmultinom(evento_interes, size = tamano_muestra, prob = c(prob_receptor, prob_opuesto, prob_central))
+
+# Mostrar la probabilidad
+probabilidad_evento
+
+```
+
+
+
+
+
 ### Quinto paso
 
 Con las variables cuantitativas de tu base de datos, ajusta un modelo de regresión multivariante en la forma:
@@ -225,9 +344,80 @@ Con las variables cuantitativas de tu base de datos, ajusta un modelo de regresi
 $$Y=\beta_0+\beta_1 X_1+ \cdots + \beta_p X_p + \epsilon$$
 Donde $Y$ es la variable cuantitativa que deseas explicar en función del resto de variables cuantitativas registradas. Además, calcula la función de score e interpreta su resultado en el contexto del problema.
 
+```{r}
+# Ajustar el modelo de regresión lineal
+modelo <- lm(puntos_anotados ~ horas_entrenamiento + altura_ataque + velocidad, data = rendimiento_voleibol)
+
+# Resumen del modelo para obtener los coeficientes y otras estadísticas
+summary(modelo)
+
+
+# Calcular los residuos
+residuos <- residuals(modelo)
+
+head(residuos)
+
+plot(fitted(modelo), residuals(modelo), 
+     main = "Gráfico de residuos vs. valores predichos", 
+     xlab = "Valores predichos", ylab = "Residuos")
+abline(h = 0, col = "red")
+
+
+```
+Si los residuos estuviesn dispersados alrededor del cero, sugerirí que el modelo es adecuado, como no lo estan, no podemos afirmarlo. De echo, vemos que tenemos valores elevados.
+
+En R, la función de score no se calcula directamente como tal, pero se puede observar su comportamiento a través de los residuos del modelo. Para obtener la función de score en regresión lineal, puedes hacerlo indirectamente al calcular los residuos y las derivadas de la log-verosimilitud, o bien, utilizando herramientas más especializadas como optim() o nlm() para maximizar la verosimilitud en modelos más complejos.
+
 ### Sexto paso
 
 Realiza un contraste de hipótesis de dos medias multivariante que sea relevante para tu problema. Por ejemplo, podrías evaluar si el vector de medias de la variable cuantitativa de interés $Y$ es el mismo para dos niveles distintos de la variable no cuantitativa que modelaste como multinomial en el paso anterior. Ejecuta el contraste tanto teóricamente como con la función hotelling.test en R. Escribe la conclusión del contraste en el contexto de tu problema.
+
+```{r}
+# Seleccionar las variables cuantitativas y la variable sexo
+datos_sexo <- rendimiento_voleibol %>%
+  dplyr::select(sexo, horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)
+
+
+# Filtrar los datos por sexo
+datos_masculino <- datos_sexo %>% filter(sexo == "Masculino") %>% dplyr::select(-sexo)
+datos_femenino <- datos_sexo %>% filter(sexo == "Femenino") %>% dplyr::select(-sexo)
+
+# Realizar la prueba de Hotelling para contrastar las medias multivariantes
+# La función hotelling.test toma las dos muestras y compara sus medias multivariantes
+test_hotelling <- hotelling.test(datos_masculino, datos_femenino)
+
+# Mostrar el resultado de la prueba
+test_hotelling
+```
+
+```{r}
+# Filtrar los datos de motivación "Muy bajo" y "Muy alto"
+datos_motivacion_bajo <- rendimiento_voleibol %>%
+  filter(nivel_motivacion == 1) %>%
+  dplyr::select(-nivel_motivacion)
+
+datos_motivacion_alto <- rendimiento_voleibol %>%
+  filter(nivel_motivacion == 5) %>%
+  dplyr::select(-nivel_motivacion)
+
+# Realizar la prueba de Hotelling para comparar las medias multivariantes
+test_hotelling <- hotelling.test(datos_motivacion_bajo, datos_motivacion_alto)
+
+# Mostrar el resultado de la prueba
+test_hotelling
+
+```
+
+
+```{r}
+# Realizar el contraste MANOVA para varios niveles de motivación
+modelo_manova <- manova(cbind(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados) ~ nivel_motivacion, data = rendimiento_voleibol)
+
+# Resumen del modelo MANOVA
+summary(modelo_manova)
+```
+
+
 
 ### Último paso
 
