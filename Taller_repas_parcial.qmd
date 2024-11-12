@@ -8,6 +8,7 @@ format:
     toc-depth: 3
 Rendering:
     embed-resources: true
+
 ---
 
 ```{r setup, include=FALSE}
@@ -106,30 +107,6 @@ Los objetivos más específicos son:
 
 1. Vamos a hacer un contraste de correlación entre la variable salto veritcal (X2) y el tiempo de horas dedicadas al entrenamiento  (X1). Haremos un test de Pearson ya que teniemos dos variables contínuas que siguen una distribución normal (por construcción) y veremos si existe una correlación lineal.  
 
-```{r}
-
-# Crear un nuevo factor de rangos para las horas de entrenamiento
-rendimiento_voleibol$horas_rango <- cut(rendimiento_voleibol$horas_entrenamiento, 
-                                        breaks = c(0, 3, 6, 9, 12, 15, 18, 21, 24, 27), 
-                                         labels = c("0-3", "3-6", "6-9", "9-12", "12-15", "15-18", "18-21", "21-24", "24-28"))
-
-# Calcular la media de altura de ataque por cada rango de horas de entrenamiento
-media_altura_por_rango <- rendimiento_voleibol %>%
-  group_by(horas_rango) %>%
-  summarise(media_altura = mean(altura_ataque))
-
-
-# Crear el gráfico de barras
-ggplot(media_altura_por_rango, aes(x = horas_rango, y = media_altura, fill = horas_rango)) +
-  geom_bar(stat = "identity") +  # Barra de altura proporcional a la media de puntos
-  labs(title = "Altura de ataque por rango de horas de entrenamiento",
-       x = "Horas de Entrenamiento ", y = "Altura de ataque") +
-  theme_minimal() +
-  scale_fill_brewer(palette = "Set3")  + theme(legend.position = "none") 
-
-
-
-```
 
 
 
@@ -310,6 +287,8 @@ tabla_posicion <- rendimiento_voleibol %>%
   count(posicion) %>%
   mutate(probabilidad = n / sum(n))
 
+
+
 # Ver los parámetros estimados (probabilidades)
 tabla_posicion
 
@@ -373,49 +352,33 @@ En R, la función de score no se calcula directamente como tal, pero se puede ob
 Realiza un contraste de hipótesis de dos medias multivariante que sea relevante para tu problema. Por ejemplo, podrías evaluar si el vector de medias de la variable cuantitativa de interés $Y$ es el mismo para dos niveles distintos de la variable no cuantitativa que modelaste como multinomial en el paso anterior. Ejecuta el contraste tanto teóricamente como con la función hotelling.test en R. Escribe la conclusión del contraste en el contexto de tu problema.
 
 ```{r}
-# Seleccionar las variables cuantitativas y la variable sexo
-datos_sexo <- rendimiento_voleibol %>%
-  dplyr::select(sexo, horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)
+datos_receptor <- rendimiento_voleibol %>%
+  filter(posicion == "Receptor") %>%
+  dplyr::select(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)
+
+datos_opuesto <- rendimiento_voleibol %>%
+  filter(posicion == "Opuesto") %>%
+  dplyr::select(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)
+
+datos_central <- rendimiento_voleibol %>%
+  filter(posicion == "Central") %>%
+  dplyr::select(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)
+
+# Ejecutar la prueba de Hotelling para comparar las medias multivariantes
+test_hotelling_rc <- hotelling.test(datos_receptor, datos_central)
+
+test_hotelling_ro <- hotelling.test(datos_receptor, datos_opuesto)
+
+test_hotelling_co <- hotelling.test(datos_central, datos_opuesto)
 
 
-# Filtrar los datos por sexo
-datos_masculino <- datos_sexo %>% filter(sexo == "Masculino") %>% dplyr::select(-sexo)
-datos_femenino <- datos_sexo %>% filter(sexo == "Femenino") %>% dplyr::select(-sexo)
 
-# Realizar la prueba de Hotelling para contrastar las medias multivariantes
-# La función hotelling.test toma las dos muestras y compara sus medias multivariantes
-test_hotelling <- hotelling.test(datos_masculino, datos_femenino)
-
-# Mostrar el resultado de la prueba
-test_hotelling
+# Mostrar los resultados del contraste
+test_hotelling_rc
+test_hotelling_ro
+test_hotelling_co
 ```
-
-```{r}
-# Filtrar los datos de motivación "Muy bajo" y "Muy alto"
-datos_motivacion_bajo <- rendimiento_voleibol %>%
-  filter(nivel_motivacion == 1) %>%
-  dplyr::select(-nivel_motivacion)
-
-datos_motivacion_alto <- rendimiento_voleibol %>%
-  filter(nivel_motivacion == 5) %>%
-  dplyr::select(-nivel_motivacion)
-
-# Realizar la prueba de Hotelling para comparar las medias multivariantes
-test_hotelling <- hotelling.test(datos_motivacion_bajo, datos_motivacion_alto)
-
-# Mostrar el resultado de la prueba
-test_hotelling
-
-```
-
-
-```{r}
-# Realizar el contraste MANOVA para varios niveles de motivación
-modelo_manova <- manova(cbind(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados) ~ nivel_motivacion, data = rendimiento_voleibol)
-
-# Resumen del modelo MANOVA
-summary(modelo_manova)
-```
+Como el p valor es grande, no podmeos rechazar la hipótesis nula, es decir, no encontramos evidencias suficientes para concluir que hay una gran diferencia entre las medias de las variables de puntos anotados entre los receptores y los centrales y los opuestos.
 
 
 
@@ -428,10 +391,5 @@ Recuerda que:
 * Crea un repositorio en GitHub para tu proyecto y asegúrate de añadir en el encabezado YAML la siguiente opción necesaria para la renderización sin problemas:
 
 
-```{r, eval=FALSE}
-Rendering:
-    embed-resources: true
-
-```
 
 ¡Buena suerte y disfruta del proceso!
