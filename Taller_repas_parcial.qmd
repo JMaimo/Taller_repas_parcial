@@ -403,7 +403,7 @@ En R, la función de score no se calcula directamente como tal, pero se puede ob
 # Calcular los residuos
 residuos <- residuals(modelo)
 
-head(residuos)
+#head(residuos)
 
 plot(fitted(modelo), residuals(modelo), 
      main = "Gráfico de residuos vs. valores predichos", 
@@ -470,3 +470,19 @@ test_hotelling_co
 
 
 Como todos los p-valor son grandes, no podmeos rechazar la hipótesis nula, es decir, no encontramos evidencias suficientes para concluir que hay una gran diferencia entre las medias de las variables de puntos anotados entre los receptores y los centrales y los opuestos (anotan un total d puntos similar).
+
+###Conclusión
+Con este estudio hemos intentado encontrar aspectos de los jugadores y las jugadoras de volei que le afectan al rendimiento en los partidos a la hora de anotar puntos.
+
+En primer lugar, hemos visto que parece que hay una correlación positiva entre el hecho de entrenar más horas y anotar más puntos. También otra correlación positiva entre la altura de ataque y la capacidad de puntuar. En cambio si hablamos de como afecta la velocidad, parece ser que no afecta.
+
+En segundo lugar, hemos estudiado como afectan diferentes aspectos más psicológicos como la experiéncia, el compromiso y la motivación; llegando a la conclusión que parece no tener ningún tipo de efecto sobre el ataque.
+
+En tercer lugar, queríamos ver si existía alguna diferencia en el voleibol masculino respecto del femenino, pero hemos visto que en efectos de puntuar son muy parecidos. Además, también el numero de puntos por jugador se reparte muy bien respecto a su posición ya que puntúan una media por partido similar.
+
+En definitiva, hemos podido sacar conclusiones bastante interesantes sobre la capacidad de puntuar en el voleibol tanto masculino como femenino.
+
+(Cabe remarcar que la base de datos es aleatoria y eso provoca que las conclusiones no se puedan extraen en la práctica, aunque se ha creado la matriz de covarianza de forma que tenga un mínimo de lógica).
+
+
+

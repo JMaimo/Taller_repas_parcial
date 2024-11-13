@@ -241,6 +241,9 @@ alternative hypothesis: two-sided</code></pre>
 <p>Como tenemos un p-valor grande no podemos rechazar que sigan una distribución diferente.</p>
 <p>Realizaremos también algun análisis para responder a los objetivos buscados: Empezaremos con un contraste de correlación entre la variable salto veritcal y el tiempo de horas dedicadas al entrenamiento. Haremos un test de Pearson ya que tenemos dos variables contínuas que siguen una distribución normal (por construcción) y veremos si existe una correlación lineal.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cor_test1 <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(rendimiento_voleibol<span class="sc">$</span>horas_entrenamiento, rendimiento_voleibol<span class="sc">$</span>altura_ataque)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cor_test1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -258,15 +261,6 @@ sample estimates:
 <p>No podemos concluir que haya una correlación entre el total de horas entradas a la semana y la altura de ataque (hipotsi nula es que la correlación entre las dos variables es 0). Puede ser debido a que tiene que ver con la altura del jugador/a, con la genética u otros factores externos.</p>
 <p>Ahora estudiemos las horas de entrenamiento con el total de puntos por partido. Veamos un gráfico para intentar predecir o entender el resultado del test:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rendimiento_voleibol, <span class="fu">aes</span>(<span class="at">x =</span> horas_entrenamiento, <span class="at">y =</span> puntos_anotados)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="co"># Puntos para observaciones individuales</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span>  <span class="co"># Línea de predicción del modelo de Poisson utilizando un modelo lineal generalizado</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre Horas de Entrenamiento y Puntos Anotados"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Horas de Entrenamiento"</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Puntos Anotados"</span>) <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -305,9 +299,7 @@ F-statistic: 9.968 on 1 and 98 DF,  p-value: 0.002117</code></pre>
 </div>
 </div>
 <p>En este caso vemos que el p-valor es menor a 0.05, por tanto podemos rechazar la hipotesis nula. Es decir, sí que hay una correlación entre las horas entrenadas y el total de puntos en un partido, de hecho el 0,3544 nos indica que por cada hora de entreno el numero de puntos notados aumenta en un 0,3544 aproximadamente.</p>
-<ol start="2" type="1">
-<li>Vamos a utilizar la prueba de correlación de Spearman para evaluar la relación entre las tres variables ordinales con la variable de puntos anotados por partido (que podemos considerar continua). Primero veamos con un grafico como se representaria:</li>
-</ol>
+<p>Vamos a utilizar la prueba de correlación de Spearman para evaluar la relación entre las tres variables ordinales con la variable de puntos anotados por partido (que podemos considerar continua). Primero veamos con un grafico como se representaria:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -362,9 +354,7 @@ sample estimates:
 </div>
 </div>
 <p>Como todos los p-valores son mayores a 0,05 no existen evidencias que nos permitan rechazar la hipotesis nula. Por tanto concluimos que no hay una correlación significativa entre las variables estudiadas y el numero total de puntos anotados.</p>
-<ol start="3" type="1">
-<li>Para saber si hay diferencias entre la cantidad de puntos que hace cada jugador segun su posición, haremos una Anova.</li>
-</ol>
+<p>Para saber si hay diferencias entre la cantidad de puntos que hace cada jugador segun su posición, haremos una Anova.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizamos el ANOVA para comparar los puntos anotados en función de la posición</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>anova_resultado <span class="ot">&lt;-</span> <span class="fu">aov</span>(puntos_anotados <span class="sc">~</span> posicion, <span class="at">data =</span> rendimiento_voleibol)</span>
@@ -512,18 +502,10 @@ F-statistic: 8.136 on 3 and 96 DF,  p-value: 6.985e-05</code></pre>
 <p>En cuanto a la velocidad, como el p-valor es mayor al 0.05, no podemos afirmar que haya la correlación que se podría esperar.</p>
 <p>En R, la función de score no se calcula directamente como tal, pero se puede observar su comportamiento a través de los residuos del modelo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular los residuos</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>residuos <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(residuos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           1            2            3            4            5            6 
  0.341345014  9.968671957  0.009378636 -0.925265585  1.920065483 -1.860874802 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(modelo), <span class="fu">residuals</span>(modelo), </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Gráfico de residuos vs. valores predichos"</span>, </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Valores predichos"</span>, <span class="at">ylab =</span> <span class="st">"Residuos"</span>)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -540,14 +522,14 @@ F-statistic: 8.136 on 3 and 96 DF,  p-value: 6.985e-05</code></pre>
 <p>Vamos a evaluar si el total de puntos que anota un jugador por partido tiene que ver con la posición en que juega. Cabe destacar que el estudio teòrico está hecho anteriormente con una anova NO multivariante. Haremos también la anova multivariante en este caso.</p>
 <p>Contraste de forma teórica con Anova multivariante:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>grupo_posicion <span class="ot">&lt;-</span> rendimiento_voleibol<span class="sc">$</span>posicion</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>variables_cuantitativas <span class="ot">&lt;-</span> rendimiento_voleibol[, <span class="fu">c</span>(<span class="st">"horas_entrenamiento"</span>, <span class="st">"altura_ataque"</span>, <span class="st">"velocidad"</span>, <span class="st">"puntos_anotados"</span>)]</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizamos el modelo MANOVA</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>modelo_manova <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados) <span class="sc">~</span> grupo_posicion, <span class="at">data =</span> rendimiento_voleibol)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumen del modelo MANOVA</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_manova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>grupo_posicion <span class="ot">&lt;-</span> rendimiento_voleibol<span class="sc">$</span>posicion</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>variables_cuantitativas <span class="ot">&lt;-</span> rendimiento_voleibol[, <span class="fu">c</span>(<span class="st">"horas_entrenamiento"</span>, <span class="st">"altura_ataque"</span>, <span class="st">"velocidad"</span>, <span class="st">"puntos_anotados"</span>)]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizamos el modelo MANOVA</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>modelo_manova <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados) <span class="sc">~</span> grupo_posicion, <span class="at">data =</span> rendimiento_voleibol)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumen del modelo MANOVA</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_manova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               Df  Pillai approx F num Df den Df Pr(&gt;F)
 grupo_posicion  2 0.03115  0.37576      8    190 0.9325
@@ -557,43 +539,43 @@ Residuals      97                                      </code></pre>
 <p>Como el p-valor es muy elevado, esto indica que no hay diferencias significativas entre las medias multivariantes de los grupos. Es decir, que aceptamos la hipótesis nula: las medias de los grupos son iguales.</p>
 <p>Veamos ahora con la función hotelling.test:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>datos_receptor <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Receptor"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>datos_opuesto <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Opuesto"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>datos_central <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Central"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar la prueba de Hotelling para comparar las medias multivariantes</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>test_hotelling_rc <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_receptor, datos_central)</span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>test_hotelling_ro <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_receptor, datos_opuesto)</span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>test_hotelling_co <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_central, datos_opuesto)</span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar los resultados del contraste</span></span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>test_hotelling_rc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>datos_receptor <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Receptor"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>datos_opuesto <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Opuesto"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>datos_central <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Central"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar la prueba de Hotelling para comparar las medias multivariantes</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>test_hotelling_rc <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_receptor, datos_central)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>test_hotelling_ro <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_receptor, datos_opuesto)</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>test_hotelling_co <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_central, datos_opuesto)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar los resultados del contraste</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>test_hotelling_rc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test stat:  1.506 
 Numerator df:  4 
 Denominator df:  60 
 P-value:  0.8371 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>test_hotelling_ro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>test_hotelling_ro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test stat:  0.76803 
 Numerator df:  4 
 Denominator df:  60 
 P-value:  0.9464 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>test_hotelling_co</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>test_hotelling_co</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test stat:  2.2388 
 Numerator df:  4 
@@ -601,7 +583,13 @@ Denominator df:  65
 P-value:  0.7105 </code></pre>
 </div>
 </div>
-<p>Como todos los p-valor son grandes, no podmeos rechazar la hipótesis nula, es decir, no encontramos evidencias suficientes para concluir que hay una gran diferencia entre las medias de las variables de puntos anotados entre los receptores y los centrales y los opuestos.</p>
+<p>Como todos los p-valor son grandes, no podmeos rechazar la hipótesis nula, es decir, no encontramos evidencias suficientes para concluir que hay una gran diferencia entre las medias de las variables de puntos anotados entre los receptores y los centrales y los opuestos (anotan un total d puntos similar).</p>
+<p>##·Conclusión Con este estudio hemos intentado encontrar aspectos de los jugadores y las jugadoras de volei que le afectan al rendimiento en los partidos a la hora de anotar puntos.</p>
+<p>En primer lugar, hemos visto que parece que hay una correlación positiva entre el hecho de entrenar más horas y anotar más puntos. También otra correlación positiva entre la altura de ataque y la capacidad de puntuar. En cambio si hablamos de como afecta la velocidad, parece ser que no afecta.</p>
+<p>En segundo lugar, hemos estudiado como afectan diferentes aspectos más psicológicos como la experiéncia, el compromiso y la motivación; llegando a la conclusión que parece no tener ningún tipo de efecto sobre el ataque.</p>
+<p>En tercer lugar, queríamos ver si existía alguna diferencia en el voleibol masculino respecto del femenino, pero hemos visto que en efectos de puntuar son muy parecidos. Además, también el numero de puntos por jugador se reparte muy bien respecto a su posición ya que puntúan una media por partido similar.</p>
+<p>En definitiva, hemos podido sacar conclusiones bastante interesantes sobre la capacidad de puntuar en el voleibol tanto masculino como femenino.</p>
+<p>(Cabe remarcar que la base de datos es aleatoria y eso provoca que las conclusiones no se puedan extraen en la práctica, aunque se ha creado la matriz de covarianza de forma que tenga un mínimo de lógica)</p>
 </section>
 
 </main>
