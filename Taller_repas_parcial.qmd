@@ -7,10 +7,8 @@ format:
     theme: lumen
     toc: true
     toc-depth: 3
-
-    
-Rendering:
     embed-resources: true
+
 ---
 
 ```{r setup, include=FALSE}
@@ -55,7 +53,7 @@ Y finalmente 2 variables nominales:
 -   Gènero "Masculino" o "Femenino" (són las dos categorías que existen en el mundo del voleibol).
 
 
-Este estudio lo puedes encontrar en: https://github.com/JMaimo/Taller_repas_parcial.git
+Este estudio lo puedes encontrar en: [link_github](https://github.com/JMaimo/Taller_repas_parcial.git)
 
 
 
