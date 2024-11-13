@@ -1,21 +1,23 @@
 ---
 title: "Taller evaluado de repaso para el Primer Parcial"
-subtitle: "20582- Análisis de Datos para el GMAT"
+subtitle: "Análisis de Datos"
+author: "Jaume Maimó Bibiloni"
 format:
   html:
     theme: lumen
     toc: true
     toc-depth: 3
+
+    
 Rendering:
     embed-resources: true
-
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
-```{r, echo=FALSE, eval=FALSE}
+```{r, echo=FALSE, eval=TRUE}
 library(tidyverse) #Poned aquí todas las librerías que utilicéis
 library(readr)
 library(MASS) # Per la distància de Mahalanobis
@@ -25,49 +27,64 @@ library(ggmosaic)
 library(Hotelling)
 ```
 
-Elige un tema que te interese (finanzas, medio ambiente, educación, cine, entre otros). En este taller, aplicarás los pasos del método científico (ver sección 1.1 de los apuntes de la asignatura) para abordar, con datos simulados, una problemática relacionada con el tema elegido. Deberás presentar un informe de tu proyecto siguiendo la estructura detallada en el documento “Recomendaciones para escribir informes de proyectos en Estadística,” que se encuentra en la sección "Práctica" de la página del curso en Aula Digital.
+### Primer paso
+Este trabajo tiene como base de datos una muestra de 100 jugadores de volei junto con las siguientes variables
 
-### Primer paso: 
-El objetivo general de este trabajo es estudiar algunas características físicas y psicològicas que afectan a la capacidad de anotar puntos de jugadores de voleibol.
+4 variables quantitativas:
+
+-   Horas de entrenamiento semanal.
+
+-   Altura máxima de ataque.
+
+-   Velocidad del jugador (segundos en recorrer 20 segundos).
+
+-   Numero de puntuntos anotados en un partido.
+
+3 ordinales (serà una escala del 1 al 5 con niveles desde "Muy bajo" a "Muy alto"):
+
+-   Nivel de compromiso.
+
+-   Nivel de motivación.
+
+-   Nivel de experiencia.
+
+Y finalmente 2 variables nominales:
+
+-   Posición.
+
+-   Gènero "Masculino" o "Femenino" (són las dos categorías que existen en el mundo del voleibol).
+
+
+Este estudio lo puedes encontrar en: https://github.com/JMaimo/Taller_repas_parcial.git
+
+
+
+El objetivo general es estudiar algunas características físicas y psicològicas que afectan a la capacidad de anotar puntos de jugadores de voleibol.
 
 Los objetivos más específicos son:
- 1. Comprobar si hay una relación con el tiempo de horas dedicadas al entrenamiento afecta al salto máximo vertical o al rendimiento en el partido (evaluado en puntos anotados).
- 2. Estudiar la relación de la motivación, la experiencia o el compromiso con la capacidad de puntuar en un partido.
 
-3. Verificar si existen diferencias en el rendimiento entre los jugadores de voleibol en funcion de factores como el sexo o la posición que juegan.
+1.  Comprobar si hay una relación con el tiempo de horas dedicadas al entrenamiento afecta al salto máximo vertical o al rendimiento en el partido (evaluado en puntos anotados).
+
+2.  Estudiar la relación de la motivación, la experiencia o el compromiso con la capacidad de puntuar en un partido.
+
+3.  Verificar si existen diferencias en el rendimiento entre los jugadores de voleibol en funcion de factores como el sexo o la posición que juegan.
 
 ### Segundo paso:
 
-Definiremos 4 variables quantitativas:
-X1: horas de entrenamiento semanal.
-X2: altura máxima en centimetros alcanzada en un salto veritcal.
-X3: velocidad del jugador (segundos en recorrer 20 segundos).
-X4: numero de puntuntos anotados en un partido.
 
-3 ordinales (serà una escala del 1 al 5 con niveles desde "Muy bajo" a "Muy alto"):
-V1: nivel de compromiso.
-V2: nivel de motivación.
-V3: nivel de experiencia
-
-Y finalmente 2 variables ordinales: 
-Z1: Posición.
-Z2: gènero "Masculino" o "Femenino" (són las dos categorías que existen en el mundo del voleibol).
-
-
-* **Tabla 1**: Genera una tabla con al menos 100 observaciones y las variables definidas en el paso anterior, asegurate que las variables cuantitativas sigan una distribución normal multivariante. A continuación, te presento un ejemplo que simula datos de una encuesta aplicada a estudiantes de secundaria sobre sus hábitos de estudio y rendimiento y que incluye información sobre su contexto de vida, como horas de sueño y tiempo de traslado a la escuela. Este ejemplo no lo debes usar en tu proyecto, solo es para darte una idea de lo que te pido hacer.
-
+**Tabla 1**: Genera una tabla con al menos 100 observaciones y las variables definidas en el paso anterior, asegurate que las variables cuantitativas sigan una distribución normal multivariante. A continuación, te presento un ejemplo que simula datos de una encuesta aplicada a estudiantes de secundaria sobre sus hábitos de estudio y rendimiento y que incluye información sobre su contexto de vida, como horas de sueño y tiempo de traslado a la escuela. Este ejemplo no lo debes usar en tu proyecto, solo es para darte una idea de lo que te pido hacer.
 
 ```{r}
 
-# Definir la media y la matriz de covarianza para las variables cuantitativas
+
 media <- c(15, 300, 3, 15)  # Medias para horas_entrenamiento, altura_ataque, velocidad, puntos_anotados
-covarianza <- matrix(c(10,  1,  1.5, 4,
-                       1,   20, 1.2, 3,
+covarianza <- matrix(c(10,  0.1,  1.5, 4,
+                       0.1,   20, 1.2, 3,
                        1.5, 1.2, 0.5, 1,
                        4,   3, 1, 15), 
                      nrow = 4, ncol = 4)
 
-# Generar los datos simulados
+# Generamos los datos
 set.seed(21)
 datos_numericos <- mvrnorm(100, mu = media, Sigma = covarianza)
 
@@ -83,79 +100,131 @@ rendimiento_voleibol <- data.frame(
   nivel_motivacion = ordered(sample(1:5, 100, replace = TRUE), labels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto")),
   nivel_experiencia = ordered(sample(1:5, 100, replace = TRUE), labels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"))
 )
-rendimiento_voleibol <- as_tibble(rendimiento_voleibol)
+rendimiento_voleibol <- as_tibble(rendimiento_voleibol) #para usar tydiverse
 
 ```
-
-
-* **Tabla 2**: Consigue algunos datos en Internet que puedas utilizar para ayudar a resolver tu problema (una variable o dos basta), algunas ideas de dónde buscar son: [datos abiertos del Gobierno de España](https://datos.gob.es/es/), [INE](https://www.ine.es/ss/Satellite?L=0&c=Page&cid=1259942408928&p=1259942408928&pagename=ProductosYServicios%2FPYSLayout), [Kaggle](https://www.kaggle.com/), etc. 
-
-
-Une ambas tablas utilizando un identificador simulado en una base de datos única. Emplea las funciones del paquete tidyverse explicadas en la sección 1.7.5 de los apuntes de la asignatura. Esta parte es opcional, pero te permitirá enriquecer tu base de datos y realizar análisis más completos.
-
 
 ### Tercer paso
 
 Realiza un análisis descriptivo multivariantes de tu base de datos de acuerdo a los objetivos de tu trabajo. Describe lo observado en el contexto del problema. 
-Los objetivos más específicos son:
- 1. Comprobar si hay una relación con el tiempo de horas dedicadas al entrenamiento afecta al salto máximo vertical o al rentimiento en el partido (evaluado en puntos anotados).
- 2. Estudiar la relación de la motivación, la experiencia o el compromiso con la capacidad de puntuar en un partido.
-
-3. Verificar si existen diferencias en el rendimiento entre los jugadores de voleibol en funcion de factores como el sexo o la posición que juegan.
 
 
+Primero comprovemos realmente que la distancia de Mahalanobis sigue una distribución $\chi^2$ con 4 grados de libertad (ya que por construcción siguen una distribución normal multivariante). Observémoslo gráficamente en una primera instancia:
+```{r, echo = FALSE}
+dist_mahalanobis <- mahalanobis(rendimiento_voleibol[, c("horas_entrenamiento", "altura_ataque", "velocidad", "puntos_anotados")], 
+                                center = media, 
+                                cov = covarianza)
+hist(dist_mahalanobis, breaks = 20, freq = FALSE, 
+     main = "Distribución de la distancia de Mahalanobis", 
+     xlab = "Distancias al cuadrado", ylab = "Densidad", 
+     col = "blue", border = "black", xlim = c(0, max(dist_mahalanobis) * 1.5), ylim = c(0,0.2))  # Ajusta xlim para incluir los valores altos
+# Superponer la curva teórica de la distribución chi-cuadrado
+curve(dchisq(x, df = 4), add = TRUE, col = "red", lwd = 2, from = 0, to = max(dist_mahalanobis) * 1.1)
 
-1. Vamos a hacer un contraste de correlación entre la variable salto veritcal (X2) y el tiempo de horas dedicadas al entrenamiento  (X1). Haremos un test de Pearson ya que teniemos dos variables contínuas que siguen una distribución normal (por construcción) y veremos si existe una correlación lineal.  
+
+
+qqplot(qchisq(ppoints(100), df = 4), dist_mahalanobis, main = "QQ")
+qqline(dist_mahalanobis, distribution = function(p) qchisq(p, df = 4), col = "red", lwd = 2)
+
+
+```
+```{r}
+
+```
+
+
+Viendo el gráfico podemos intuir que sí que sigue una $\chi ^2$. Ahora hacemos una prueba para verlo:
+```{r}
+
+ks.test(dist_mahalanobis, "pchisq", df = 4)
+
+```
+
+Como tenemos un p-valor grande no podemos rechazar que sigan una distribución diferente.
 
 
 
+Realizaremos también algun análisis para responder a los objetivos buscados:
+Empezaremos con un contraste de correlación entre la variable salto veritcal  y el tiempo de horas dedicadas al entrenamiento. Haremos un test de Pearson ya que tenemos dos variables contínuas que siguen una distribución normal (por construcción) y veremos si existe una correlación lineal.
 
 ```{r}
 
 cor_test1 <- cor.test(rendimiento_voleibol$horas_entrenamiento, rendimiento_voleibol$altura_ataque)
 
-# Mostrar el resultado
-print(cor_test1)
+cor_test1
 
 ```
 
-No podemos concluir que haya una correlación entre el total de horas entradas a la  semana y la altura de ataque. Puede ser debido a que tiene que ver con la altura del jugador/a, con la genética u otros factores externos. De hecho, como r = 0.0464 indica que casi no hay correlación positiva.
+No podemos concluir que haya una correlación entre el total de horas entradas a la semana y la altura de ataque (hipotsi nula es que la correlación entre las dos variables es 0). Puede ser debido a que tiene que ver con la altura del jugador/a, con la genética u otros factores externos. 
 
 
-Ahora las horas de entrenamiento con el total de puntos por partido:
+Ahora estudiemos las horas de entrenamiento con el total de puntos por partido. Veamos un gráfico para intentar predecir o entender el resultado del test:
 
-
-```{r}
+```{r, echo=FALSE}
 ggplot(rendimiento_voleibol, aes(x = horas_entrenamiento, y = puntos_anotados)) +
-  geom_point(alpha = 0.6) +  # Puntos para observaciones individuales
-  stat_smooth(method = "glm", method.args = list(family = "poisson"), 
-              color = "blue", se = TRUE) +  # Línea de predicción del modelo de Poisson
+  geom_point() +  # Puntos para observaciones individuales
+  stat_smooth(method = "lm", 
+              color = "blue", se = TRUE) +  # Línea de predicción del modelo de Poisson utilizando un modelo lineal generalizado
+  
   labs(title = "Relación entre Horas de Entrenamiento y Puntos Anotados",
        x = "Horas de Entrenamiento",
        y = "Puntos Anotados") +
   theme_minimal()
 ```
 
-Si interpretamos la gráfica, vemos como más horas de entrenamiento hay, más puntos parecen anotar, por tanto, podemos intuir que si que hay una correlación entre las dos variables.
+Hemos modelado la recta con un metodo de regresión lineal, cuya sombra gris es el intervalo de confianza al 95%, es decir si volviesemos a tomar muestras y ajustar el modelo, la linea azul estaría en esa franja un 95% de las veces.
+Si interpretamos la gráfica, vemos como más horas de entrenamiento hay, más puntos parecen anotar ya que la recta es creciente, por tanto, podemos intuir que si que hay una correlación entre las dos variables.
+
+Veámoslo con el test adecuado:
+
 ```{r}
 
-modelo_poisson <- glm(puntos_anotados ~ horas_entrenamiento, family = "poisson", data = rendimiento_voleibol)
+modelo_lineal <- lm(puntos_anotados ~ horas_entrenamiento, data = rendimiento_voleibol)
+
 
 # Resumen del modelo
-summary(modelo_poisson)
+summary(modelo_lineal)
 
 ```
-En este caso vemos que el p-valor es menor a 0.05, por tanto podemos rechazar la hipotesis nula. Es decir, sí que hay una correlación entre las horas entrenadas y el total de puntos en un partido. Aunque cabe decir que la correlación no es demasiado fuerte ya que r = 0.278.
+
+En este caso vemos que el p-valor es menor a 0.05, por tanto podemos rechazar la hipotesis nula. Es decir, sí que hay una correlación entre las horas entrenadas y el total de puntos en un partido, de hecho el 0,3544 nos indica que por cada hora de entreno el numero de puntos notados aumenta en un 0,3544 aproximadamente.
 
 
+Vamos a utilizar la prueba de correlación de Spearman para evaluar la relación entre las tres variables ordinales con la variable de puntos anotados por partido (que podemos considerar continua).
+Primero veamos con un grafico como se representaria:
 
-2. Vamos a utilizar la prueba de correlación de Spearman para evaluar la relación entre las tres variables ordinales con la variable  de puntos anotados por partido (que podemos considerar continua).
+```{r, echo = FALSE}
 
-Asignamos valores numericos a las variables ordinales:
 
-```{r}
-rendimiento_voleibol
-glimpse(rendimiento_voleibol) 
+# Paso 1: Convertir los datos a formato largo
+rendimiento_long <- rendimiento_voleibol %>%
+  gather(key = "variable", value = "nivel", 
+         nivel_compromiso, nivel_experiencia, nivel_motivacion)
+
+# Paso 2: Calcular la suma o la media de puntos anotados por cada combinación de variable, nivel y sexo
+# Cambia 'mean' a 'sum' si quieres la suma en lugar de la media
+rendimiento_suma <- rendimiento_long %>%
+  group_by(sexo, variable, nivel) 
+
+# Paso 3: Crear el gráfico de barras apiladas con facetas
+ggplot(rendimiento_suma, aes(x = factor(nivel), y = puntos_anotados, fill = sexo)) +  # factor(nivel) para tratar 'nivel' como categórico
+  geom_bar(stat = "identity", position = "dodge") +  # Usamos 'position = dodge' para barras separadas por sexo
+  facet_grid(sexo ~ variable) +  # Facetas por sexo y por variable (compromiso, experiencia, motivación)
+  labs(
+    title = "Distribución de puntos anotados según nivel de compromiso, experiencia y motivación",
+    x = "Nivel del 1 al 5)",
+    y = "Media de puntos anotados",  # O "Suma de puntos anotados" si cambias a sum()
+    fill = "Sexo"
+  ) +
+  theme_minimal() 
+
+```
+
+
+```{r, echo = FALSE}
+#Aquí simplemente pasamos a numeric los diferentes niveles del 1 al 5
+#rendimiento_voleibol
+#glimpse(rendimiento_voleibol) 
 
 rendimiento_voleibol <- rendimiento_voleibol %>%
   mutate(
@@ -175,9 +244,10 @@ rendimiento_voleibol <- rendimiento_voleibol %>%
 
 rendimiento_voleibol <- as_tibble(rendimiento_voleibol)
 
-glimpse(rendimiento_voleibol) 
+#glimpse(rendimiento_voleibol) 
 
 ```
+
 
 
 
@@ -188,55 +258,31 @@ cor_experiencia_puntos <- cor.test(rendimiento_voleibol$nivel_experiencia, rendi
 cor_compromiso_puntos <- cor.test(rendimiento_voleibol$nivel_compromiso, rendimiento_voleibol$puntos_anotados, method = "spearman")
 
 # Resultados
-print(cor_motivacion_puntos)
-print(cor_experiencia_puntos)
-print(cor_compromiso_puntos)
+cor_motivacion_puntos
+cor_experiencia_puntos
+cor_compromiso_puntos
 
 ```
-
-
-
-```{r}
-# Convertir las tres columnas en un formato largo
-rendimiento_long <- rendimiento_voleibol %>%
-  gather(key = "variable", value = "nivel", 
-         nivel_motivacion, nivel_experiencia, nivel_compromiso)
-
-# Crear el gráfico de barras apiladas con facetas
-ggplot(rendimiento_long) +
-  geom_bar(aes(x = nivel, fill = sexo), position = "stack") +
-  facet_wrap(~variable, scales = "free_x") +  # Facetas para cada una de las tres variables
-  labs(
-    x = "Nivel",
-    y = "Número de Jugadores",
-    fill = "Sexo",
-    title = "Distribución de las características dependido del sexo"
-  ) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
-
-```
+Como todos los p-valores son mayores a 0,05 no existen evidencias que nos permitan rechazar la hipotesis nula. Por tanto concluimos que no hay una correlación significativa entre las variables estudiadas y el numero total de puntos anotados.
 
 
 
 
+Para saber si hay diferencias entre la cantidad de puntos que hace cada jugador segun su posición, haremos una Anova.
 
-
-
-
-3. Para saber si hay diferencias entre la cantidad de puntos que hace cada jugador segun su posición, haremos una Anova.
 ```{r}
 # Realizamos el ANOVA para comparar los puntos anotados en función de la posición
 anova_resultado <- aov(puntos_anotados ~ posicion, data = rendimiento_voleibol)
 
-# Ver el resumen de los resultados del ANOVA
 summary(anova_resultado)
 
 ```
-Observamos que el p-valor es alto, por lo tanto, aceptamos la hipotsesis nula:  Las medias de puntos anotados son iguales para todas las posiciones. Es decir, el total de puntos que hace un jugador por partido no depende de la posición.
+
+Observamos que el p-valor es alto, por lo tanto, aceptamos la hipotsesis nula: Las medias de puntos anotados son iguales para todas las posiciones. Es decir, el total de puntos que hace un jugador por partido no depende de la posición.
 
 Hagamos un gráfico para verlo explícitamente:
-```{r}
+
+```{r, echo = FALSE}
 # Crear un boxplot para visualizar las diferencias de puntos anotados según la posición
 ggplot(rendimiento_voleibol, aes(x = posicion, y = puntos_anotados, fill = posicion)) +
   geom_boxplot() +
@@ -247,9 +293,10 @@ ggplot(rendimiento_voleibol, aes(x = posicion, y = puntos_anotados, fill = posic
   scale_fill_brewer(palette = "Set3")  # Cambia el esquema de colores
 ```
 
-Vamos a estudiar si el total de puntos que hace un jugador, depende de la categoría que juega (masculino o femenino), para así poder concluir el total de errores y/o bloqueos que se cometen en cada partido dependiendo de la categoria:
+Vamos a estudiar si el total de puntos que hace un jugador, depende de la categoría que juega (estudiar por sexo), para así poder concluir el total de errores y/o bloqueos que se cometen en cada partido dependiendo de la categoria.
+Veámos un gráfico para hacernos una idea:
 
-```{r}
+```{r, echo=FALSE}
 # Crear un boxplot para visualizar las diferencias de puntos anotados según la posición
 ggplot(rendimiento_voleibol, aes(x = sexo, y = puntos_anotados, fill = sexo)) +
   geom_boxplot() +
@@ -264,35 +311,48 @@ ggplot(rendimiento_voleibol, aes(x = sexo, y = puntos_anotados, fill = sexo)) +
 # Realizamos el ANOVA para comparar los puntos anotados en función de la categoría (sexo)
 anova_resultado <- aov(puntos_anotados ~ sexo, data = rendimiento_voleibol)
 
-# Ver el resumen de los resultados del ANOVA
 summary(anova_resultado)
 
 ```
-
+Veamos que tenemos un p-valor por encima del 0,05 por tanto aceptamos la hipotsesis nula: Las medias de puntos anotados no dependen del sexo. Es decir, el total de puntos que hace un jugador por partido no depende de la categoría en que juegan.
 
 
 Para las variables cuantitativas de tu base de datos, calcula e interpreta la información que proporciona la varianza generalizada y la varianza total.
 
+```{r}
+#Cálculo de la varianza generalizada
+gen_var <- det(covarianza)
+
+#Cálculo de la varianza total
+total_var <- sum(diag(covarianza))
+
+gen_var
+total_var
+
+```
 
 
 ### Cuarto paso
 
 Selecciona una de las variables no cuantitativas y modelízala con una distribución multinomial, debes estimar sus parámetros. Utiliza el modelo para calcular la probabilidad de que ocurra un evento de interés en una muestra de tamaño 20, relevante para tu problema.
 
+Seleccionaremos la variable no cuantitativa la posición en que juega cada jugador, que tiene tres niveles: *Receptor*, *Opuesto* o *Central*.
+
 
 ```{r}
-
-# Calculamos las frecuencias relativas para la variable 'posicion'
+# Calculamos las frecuencias relativas para la variable posición
 tabla_posicion <- rendimiento_voleibol %>%
   count(posicion) %>%
   mutate(probabilidad = n / sum(n))
 
 
 
-# Ver los parámetros estimados (probabilidades)
+# Vemos el vector de probabilidades
 tabla_posicion
+```
 
-# Ahora, modelamos con una distribución multinomial usando las probabilidades estimadas
+Estudiemos ahora el caso en que si cogemos una muestra de 20 jugadores, 10 sean receptores, 4 sean opuestos y 6 centrales.
+```{r}
 # Probabilidades estimadas de las categorías
 prob_receptor <- tabla_posicion$probabilidad[tabla_posicion$posicion == "Receptor"]
 prob_opuesto <- tabla_posicion$probabilidad[tabla_posicion$posicion == "Opuesto"]
@@ -301,8 +361,8 @@ prob_central <- tabla_posicion$probabilidad[tabla_posicion$posicion == "Central"
 # Tamaño de la muestra
 tamano_muestra <- 20
 
-# Evento de interés: supongamos que nos interesa la probabilidad de tener 10 'Receptor', 5 'Opuesto' y 5 'Central' en una muestra de 20 jugadores
-evento_interes <- c(10, 5, 5)
+# La cantidad q queremos de cada
+evento_interes <- c(10, 4, 6)
 
 # Aplicamos la fórmula de la distribución multinomial para calcular la probabilidad
 probabilidad_evento <- dmultinom(evento_interes, size = tamano_muestra, prob = c(prob_receptor, prob_opuesto, prob_central))
@@ -312,25 +372,34 @@ probabilidad_evento
 
 ```
 
-
-
-
-
 ### Quinto paso
 
 Con las variables cuantitativas de tu base de datos, ajusta un modelo de regresión multivariante en la forma:
 
-$$Y=\beta_0+\beta_1 X_1+ \cdots + \beta_p X_p + \epsilon$$
-Donde $Y$ es la variable cuantitativa que deseas explicar en función del resto de variables cuantitativas registradas. Además, calcula la función de score e interpreta su resultado en el contexto del problema.
+$$Y=\beta_0+\beta_1 X_1+ \cdots + \beta_p X_p + \epsilon$$ Donde $Y$ es la variable cuantitativa que deseas explicar en función del resto de variables cuantitativas registradas. Además, calcula la función de score e interpreta su resultado en el contexto del problema.
+
+
+Nuestra $Y$ será la variable dependiente, que es el total de puntos anotados (variable cuantitativa), e intentaremos explicarla en función de las otras variables cuantitativas: horas de entrenamiento, altura de ataque y velocidad.
 
 ```{r}
-# Ajustar el modelo de regresión lineal
+# Modelo de regresión lineal múltiple
 modelo <- lm(puntos_anotados ~ horas_entrenamiento + altura_ataque + velocidad, data = rendimiento_voleibol)
 
-# Resumen del modelo para obtener los coeficientes y otras estadísticas
 summary(modelo)
 
 
+```
+Es interesante ver que en este caso, el p-valor relacionado con las horas de entrenamiento es mayor a 0.05 en diferencia de cuando hemos aplicado la regresión lineal simple. Esto se debe a que lo estamos calculando con otras variables y hace que ésta se vuelva más débil y además puede que existe una correlación entre ellas. En definitiva, en este caso tendríamos que concluir que el total de horas de entrenamiento no está correlacionado con los puntos anotados por partido.
+
+En cambio el p-valor considerando la altura de ataque máxima sí es menor a 0.05 pudiendo afirmar que tienen una correlación.
+
+En cuanto a la velocidad, como el p-valor es mayor al 0.05, no podemos afirmar que haya la correlación que se podría esperar.
+
+
+
+En R, la función de score no se calcula directamente como tal, pero se puede observar su comportamiento a través de los residuos del modelo. 
+
+```{r, echo=FALSE}
 # Calcular los residuos
 residuos <- residuals(modelo)
 
@@ -340,16 +409,36 @@ plot(fitted(modelo), residuals(modelo),
      main = "Gráfico de residuos vs. valores predichos", 
      xlab = "Valores predichos", ylab = "Residuos")
 abline(h = 0, col = "red")
-
-
 ```
-Si los residuos estuviesn dispersados alrededor del cero, sugerirí que el modelo es adecuado, como no lo estan, no podemos afirmarlo. De echo, vemos que tenemos valores elevados.
 
-En R, la función de score no se calcula directamente como tal, pero se puede observar su comportamiento a través de los residuos del modelo. Para obtener la función de score en regresión lineal, puedes hacerlo indirectamente al calcular los residuos y las derivadas de la log-verosimilitud, o bien, utilizando herramientas más especializadas como optim() o nlm() para maximizar la verosimilitud en modelos más complejos.
+Si los residuos estuviesn dispersados alrededor del cero, sugerirí que el modelo es adecuado, como no lo estan, no podemos afirmarlo. De echo, vemos que tenemos valores elevados. Así que no tenemos una relación lineal.
+
+
 
 ### Sexto paso
 
 Realiza un contraste de hipótesis de dos medias multivariante que sea relevante para tu problema. Por ejemplo, podrías evaluar si el vector de medias de la variable cuantitativa de interés $Y$ es el mismo para dos niveles distintos de la variable no cuantitativa que modelaste como multinomial en el paso anterior. Ejecuta el contraste tanto teóricamente como con la función hotelling.test en R. Escribe la conclusión del contraste en el contexto de tu problema.
+
+
+Vamos a evaluar si el total de puntos que anota un jugador por partido tiene que ver con la posición en que juega. Cabe destacar que el estudio teòrico está hecho anteriormente con una anova NO multivariante. Haremos también la anova multivariante en este caso.
+
+Contraste de forma teórica  con Anova multivariante:
+```{r}
+grupo_posicion <- rendimiento_voleibol$posicion
+variables_cuantitativas <- rendimiento_voleibol[, c("horas_entrenamiento", "altura_ataque", "velocidad", "puntos_anotados")]
+
+# Realizamos el modelo MANOVA
+modelo_manova <- manova(cbind(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados) ~ grupo_posicion, data = rendimiento_voleibol)
+
+# Resumen del modelo MANOVA
+summary(modelo_manova)
+
+```
+
+Como el p-valor es muy elevado, esto indica que no hay diferencias significativas entre las medias multivariantes de los grupos. Es decir, que aceptamos la hipótesis nula: las medias de los grupos son iguales.
+
+
+Veamos ahora con la función hotelling.test:
 
 ```{r}
 datos_receptor <- rendimiento_voleibol %>%
@@ -378,18 +467,6 @@ test_hotelling_rc
 test_hotelling_ro
 test_hotelling_co
 ```
-Como el p valor es grande, no podmeos rechazar la hipótesis nula, es decir, no encontramos evidencias suficientes para concluir que hay una gran diferencia entre las medias de las variables de puntos anotados entre los receptores y los centrales y los opuestos.
 
 
-
-### Último paso
-
-Recuerda que:
-
-* De acuerdo con las recomendaciones para redactar informes de proyectos en Estadística, tu informe debe incluir conclusiones, recomendaciones y bibliografía.
-
-* Crea un repositorio en GitHub para tu proyecto y asegúrate de añadir en el encabezado YAML la siguiente opción necesaria para la renderización sin problemas:
-
-
-
-¡Buena suerte y disfruta del proceso!
+Como todos los p-valor son grandes, no podmeos rechazar la hipótesis nula, es decir, no encontramos evidencias suficientes para concluir que hay una gran diferencia entre las medias de las variables de puntos anotados entre los receptores y los centrales y los opuestos (anotan un total d puntos similar).

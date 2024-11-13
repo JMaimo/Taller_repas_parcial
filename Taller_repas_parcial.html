@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jaume Maimó Bibiloni">
+
+<title>Taller evaluado de repaso para el Primer Parcial</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Taller_repas_parcial_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Taller_repas_parcial_files/libs/quarto-html/quarto.js"></script>
+<script src="Taller_repas_parcial_files/libs/quarto-html/popper.min.js"></script>
+<script src="Taller_repas_parcial_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Taller_repas_parcial_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Taller_repas_parcial_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Taller_repas_parcial_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Taller_repas_parcial_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Taller_repas_parcial_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Taller_repas_parcial_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#primer-paso" id="toc-primer-paso" class="nav-link active" data-scroll-target="#primer-paso">Primer paso</a></li>
+  <li><a href="#segundo-paso" id="toc-segundo-paso" class="nav-link" data-scroll-target="#segundo-paso">Segundo paso:</a></li>
+  <li><a href="#tercer-paso" id="toc-tercer-paso" class="nav-link" data-scroll-target="#tercer-paso">Tercer paso</a></li>
+  <li><a href="#cuarto-paso" id="toc-cuarto-paso" class="nav-link" data-scroll-target="#cuarto-paso">Cuarto paso</a></li>
+  <li><a href="#quinto-paso" id="toc-quinto-paso" class="nav-link" data-scroll-target="#quinto-paso">Quinto paso</a></li>
+  <li><a href="#sexto-paso" id="toc-sexto-paso" class="nav-link" data-scroll-target="#sexto-paso">Sexto paso</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Taller evaluado de repaso para el Primer Parcial</h1>
+<p class="subtitle lead">Análisis de Datos</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jaume Maimó Bibiloni </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="primer-paso" class="level3">
+<h3 class="anchored" data-anchor-id="primer-paso">Primer paso</h3>
+<p>Este trabajo tiene como base de datos una muestra de 100 jugadores de volei junto con las siguientes variables</p>
+<p>4 variables quantitativas:</p>
+<ul>
+<li><p>Horas de entrenamiento semanal.</p></li>
+<li><p>Altura máxima de ataque.</p></li>
+<li><p>Velocidad del jugador (segundos en recorrer 20 segundos).</p></li>
+<li><p>Numero de puntuntos anotados en un partido.</p></li>
+</ul>
+<p>3 ordinales (serà una escala del 1 al 5 con niveles desde “Muy bajo” a “Muy alto”):</p>
+<ul>
+<li><p>Nivel de compromiso.</p></li>
+<li><p>Nivel de motivación.</p></li>
+<li><p>Nivel de experiencia.</p></li>
+</ul>
+<p>Y finalmente 2 variables nominales:</p>
+<ul>
+<li><p>Posición.</p></li>
+<li><p>Gènero “Masculino” o “Femenino” (són las dos categorías que existen en el mundo del voleibol).</p></li>
+</ul>
+<p>Este estudio lo puedes encontrar en: https://github.com/JMaimo/Taller_repas_parcial.git</p>
+<p>El objetivo general es estudiar algunas características físicas y psicològicas que afectan a la capacidad de anotar puntos de jugadores de voleibol.</p>
+<p>Los objetivos más específicos son:</p>
+<ol type="1">
+<li><p>Comprobar si hay una relación con el tiempo de horas dedicadas al entrenamiento afecta al salto máximo vertical o al rendimiento en el partido (evaluado en puntos anotados).</p></li>
+<li><p>Estudiar la relación de la motivación, la experiencia o el compromiso con la capacidad de puntuar en un partido.</p></li>
+<li><p>Verificar si existen diferencias en el rendimiento entre los jugadores de voleibol en funcion de factores como el sexo o la posición que juegan.</p></li>
+</ol>
+</section>
+<section id="segundo-paso" class="level3">
+<h3 class="anchored" data-anchor-id="segundo-paso">Segundo paso:</h3>
+<p><strong>Tabla 1</strong>: Genera una tabla con al menos 100 observaciones y las variables definidas en el paso anterior, asegurate que las variables cuantitativas sigan una distribución normal multivariante. A continuación, te presento un ejemplo que simula datos de una encuesta aplicada a estudiantes de secundaria sobre sus hábitos de estudio y rendimiento y que incluye información sobre su contexto de vida, como horas de sueño y tiempo de traslado a la escuela. Este ejemplo no lo debes usar en tu proyecto, solo es para darte una idea de lo que te pido hacer.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">300</span>, <span class="dv">3</span>, <span class="dv">15</span>)  <span class="co"># Medias para horas_entrenamiento, altura_ataque, velocidad, puntos_anotados</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>covarianza <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>,  <span class="fl">0.1</span>,  <span class="fl">1.5</span>, <span class="dv">4</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                       <span class="fl">0.1</span>,   <span class="dv">20</span>, <span class="fl">1.2</span>, <span class="dv">3</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                       <span class="fl">1.5</span>, <span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">4</span>,   <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">15</span>), </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Generamos los datos</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>datos_numericos <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">100</span>, <span class="at">mu =</span> media, <span class="at">Sigma =</span> covarianza)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla con datos </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>rendimiento_voleibol <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">horas_entrenamiento =</span> <span class="fu">round</span>(datos_numericos[,<span class="dv">1</span>], <span class="dv">1</span>),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">altura_ataque =</span> <span class="fu">round</span>(datos_numericos[,<span class="dv">2</span>], <span class="dv">1</span>),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">velocidad =</span> <span class="fu">round</span>(datos_numericos[,<span class="dv">3</span>], <span class="dv">1</span>),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">puntos_anotados =</span> <span class="fu">round</span>(datos_numericos[,<span class="dv">4</span>]),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">posicion =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Receptor"</span>, <span class="st">"Opuesto"</span>, <span class="st">"Central"</span>), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">sexo =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Masculino"</span>, <span class="st">"Femenino"</span>), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">nivel_compromiso =</span> <span class="fu">ordered</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Muy bajo"</span>, <span class="st">"Bajo"</span>, <span class="st">"Medio"</span>, <span class="st">"Alto"</span>, <span class="st">"Muy alto"</span>)),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">nivel_motivacion =</span> <span class="fu">ordered</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Muy bajo"</span>, <span class="st">"Bajo"</span>, <span class="st">"Medio"</span>, <span class="st">"Alto"</span>, <span class="st">"Muy alto"</span>)),</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">nivel_experiencia =</span> <span class="fu">ordered</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Muy bajo"</span>, <span class="st">"Bajo"</span>, <span class="st">"Medio"</span>, <span class="st">"Alto"</span>, <span class="st">"Muy alto"</span>))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>rendimiento_voleibol <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(rendimiento_voleibol) <span class="co">#para usar tydiverse</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tercer-paso" class="level3">
+<h3 class="anchored" data-anchor-id="tercer-paso">Tercer paso</h3>
+<p>Realiza un análisis descriptivo multivariantes de tu base de datos de acuerdo a los objetivos de tu trabajo. Describe lo observado en el contexto del problema.</p>
+<p>Primero comprovemos realmente que la distancia de Mahalanobis sigue una distribución <span class="math inline">\(\chi^2\)</span> con 4 grados de libertad (ya que por construcción siguen una distribución normal multivariante). Observémoslo gráficamente en una primera instancia:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Taller_repas_parcial_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Taller_repas_parcial_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Viendo el gráfico podemos intuir que sí que sigue una <span class="math inline">\(\chi ^2\)</span>. Ahora hacemos una prueba para verlo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(dist_mahalanobis, <span class="st">"pchisq"</span>, <span class="at">df =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  dist_mahalanobis
+D = 0.077794, p-value = 0.5804
+alternative hypothesis: two-sided</code></pre>
+</div>
+</div>
+<p>Como tenemos un p-valor grande no podemos rechazar que sigan una distribución diferente.</p>
+<p>Realizaremos también algun análisis para responder a los objetivos buscados: Empezaremos con un contraste de correlación entre la variable salto veritcal y el tiempo de horas dedicadas al entrenamiento. Haremos un test de Pearson ya que tenemos dos variables contínuas que siguen una distribución normal (por construcción) y veremos si existe una correlación lineal.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  rendimiento_voleibol$horas_entrenamiento and rendimiento_voleibol$altura_ataque
+t = -0.13351, df = 98, p-value = 0.8941
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2093494  0.1834182
+sample estimates:
+        cor 
+-0.01348579 </code></pre>
+</div>
+</div>
+<p>No podemos concluir que haya una correlación entre el total de horas entradas a la semana y la altura de ataque (hipotsi nula es que la correlación entre las dos variables es 0). Puede ser debido a que tiene que ver con la altura del jugador/a, con la genética u otros factores externos.</p>
+<p>Ahora estudiemos las horas de entrenamiento con el total de puntos por partido. Veamos un gráfico para intentar predecir o entender el resultado del test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rendimiento_voleibol, <span class="fu">aes</span>(<span class="at">x =</span> horas_entrenamiento, <span class="at">y =</span> puntos_anotados)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="co"># Puntos para observaciones individuales</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span>  <span class="co"># Línea de predicción del modelo de Poisson utilizando un modelo lineal generalizado</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relación entre Horas de Entrenamiento y Puntos Anotados"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Horas de Entrenamiento"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Puntos Anotados"</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Taller_repas_parcial_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hemos modelado la recta con un metodo de regresión lineal, cuya sombra gris es el intervalo de confianza al 95%, es decir si volviesemos a tomar muestras y ajustar el modelo, la linea azul estaría en esa franja un 95% de las veces. Si interpretamos la gráfica, vemos como más horas de entrenamiento hay, más puntos parecen anotar ya que la recta es creciente, por tanto, podemos intuir que si que hay una correlación entre las dos variables.</p>
+<p>Veámoslo con el test adecuado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modelo_lineal <span class="ot">&lt;-</span> <span class="fu">lm</span>(puntos_anotados <span class="sc">~</span> horas_entrenamiento, <span class="at">data =</span> rendimiento_voleibol)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumen del modelo</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_lineal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = puntos_anotados ~ horas_entrenamiento, data = rendimiento_voleibol)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.7044  -2.2449   0.0298   1.8253   9.5944 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          10.0261     1.7572   5.706 1.23e-07 ***
+horas_entrenamiento   0.3544     0.1123   3.157  0.00212 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.542 on 98 degrees of freedom
+Multiple R-squared:  0.09232,   Adjusted R-squared:  0.08306 
+F-statistic: 9.968 on 1 and 98 DF,  p-value: 0.002117</code></pre>
+</div>
+</div>
+<p>En este caso vemos que el p-valor es menor a 0.05, por tanto podemos rechazar la hipotesis nula. Es decir, sí que hay una correlación entre las horas entrenadas y el total de puntos en un partido, de hecho el 0,3544 nos indica que por cada hora de entreno el numero de puntos notados aumenta en un 0,3544 aproximadamente.</p>
+<ol start="2" type="1">
+<li>Vamos a utilizar la prueba de correlación de Spearman para evaluar la relación entre las tres variables ordinales con la variable de puntos anotados por partido (que podemos considerar continua). Primero veamos con un grafico como se representaria:</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Taller_repas_parcial_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pruebas de correlación de Spearman entre variables ordinales y puntuación</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cor_motivacion_puntos <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(rendimiento_voleibol<span class="sc">$</span>nivel_motivacion, rendimiento_voleibol<span class="sc">$</span>puntos_anotados, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>cor_experiencia_puntos <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(rendimiento_voleibol<span class="sc">$</span>nivel_experiencia, rendimiento_voleibol<span class="sc">$</span>puntos_anotados, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>cor_compromiso_puntos <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(rendimiento_voleibol<span class="sc">$</span>nivel_compromiso, rendimiento_voleibol<span class="sc">$</span>puntos_anotados, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultados</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>cor_motivacion_puntos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  rendimiento_voleibol$nivel_motivacion and rendimiento_voleibol$puntos_anotados
+S = 152893, p-value = 0.4142
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+0.08255283 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cor_experiencia_puntos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  rendimiento_voleibol$nivel_experiencia and rendimiento_voleibol$puntos_anotados
+S = 174078, p-value = 0.6597
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+        rho 
+-0.04457011 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cor_compromiso_puntos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  rendimiento_voleibol$nivel_compromiso and rendimiento_voleibol$puntos_anotados
+S = 177515, p-value = 0.5193
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+        rho 
+-0.06519579 </code></pre>
+</div>
+</div>
+<p>Como todos los p-valores son mayores a 0,05 no existen evidencias que nos permitan rechazar la hipotesis nula. Por tanto concluimos que no hay una correlación significativa entre las variables estudiadas y el numero total de puntos anotados.</p>
+<ol start="3" type="1">
+<li>Para saber si hay diferencias entre la cantidad de puntos que hace cada jugador segun su posición, haremos una Anova.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizamos el ANOVA para comparar los puntos anotados en función de la posición</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>anova_resultado <span class="ot">&lt;-</span> <span class="fu">aov</span>(puntos_anotados <span class="sc">~</span> posicion, <span class="at">data =</span> rendimiento_voleibol)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_resultado)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+posicion     2      2   0.994   0.071  0.931
+Residuals   97   1353  13.947               </code></pre>
+</div>
+</div>
+<p>Observamos que el p-valor es alto, por lo tanto, aceptamos la hipotsesis nula: Las medias de puntos anotados son iguales para todas las posiciones. Es decir, el total de puntos que hace un jugador por partido no depende de la posición.</p>
+<p>Hagamos un gráfico para verlo explícitamente:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Taller_repas_parcial_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vamos a estudiar si el total de puntos que hace un jugador, depende de la categoría que juega (estudiar por sexo), para así poder concluir el total de errores y/o bloqueos que se cometen en cada partido dependiendo de la categoria. Veámos un gráfico para hacernos una idea:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Taller_repas_parcial_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizamos el ANOVA para comparar los puntos anotados en función de la categoría (sexo)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>anova_resultado <span class="ot">&lt;-</span> <span class="fu">aov</span>(puntos_anotados <span class="sc">~</span> sexo, <span class="at">data =</span> rendimiento_voleibol)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_resultado)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+sexo         1   27.6   27.55   2.034  0.157
+Residuals   98 1327.3   13.54               </code></pre>
+</div>
+</div>
+<p>Veamos que tenemos un p-valor por encima del 0,05 por tanto aceptamos la hipotsesis nula: Las medias de puntos anotados no dependen del sexo. Es decir, el total de puntos que hace un jugador por partido no depende de la categoría en que juegan.</p>
+<p>Para las variables cuantitativas de tu base de datos, calcula e interpreta la información que proporciona la varianza generalizada y la varianza total.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cálculo de la varianza generalizada</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>gen_var <span class="ot">&lt;-</span> <span class="fu">det</span>(covarianza)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Cálculo de la varianza total</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>total_var <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(covarianza))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>gen_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 520.765</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>total_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 45.5</code></pre>
+</div>
+</div>
+</section>
+<section id="cuarto-paso" class="level3">
+<h3 class="anchored" data-anchor-id="cuarto-paso">Cuarto paso</h3>
+<p>Selecciona una de las variables no cuantitativas y modelízala con una distribución multinomial, debes estimar sus parámetros. Utiliza el modelo para calcular la probabilidad de que ocurra un evento de interés en una muestra de tamaño 20, relevante para tu problema.</p>
+<p>Seleccionaremos la variable no cuantitativa la posición en que juega cada jugador, que tiene tres niveles: <em>Receptor</em>, <em>Opuesto</em> o <em>Central</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos las frecuencias relativas para la variable posición</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>tabla_posicion <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(posicion) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">probabilidad =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Vemos el vector de probabilidades</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>tabla_posicion</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  posicion     n probabilidad
+  &lt;chr&gt;    &lt;int&gt;        &lt;dbl&gt;
+1 Central     35         0.35
+2 Opuesto     35         0.35
+3 Receptor    30         0.3 </code></pre>
+</div>
+</div>
+<p>Estudiemos ahora el caso en que si cogemos una muestra de 20 jugadores, 10 sean receptores, 4 sean opuestos y 6 centrales.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidades estimadas de las categorías</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>prob_receptor <span class="ot">&lt;-</span> tabla_posicion<span class="sc">$</span>probabilidad[tabla_posicion<span class="sc">$</span>posicion <span class="sc">==</span> <span class="st">"Receptor"</span>]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>prob_opuesto <span class="ot">&lt;-</span> tabla_posicion<span class="sc">$</span>probabilidad[tabla_posicion<span class="sc">$</span>posicion <span class="sc">==</span> <span class="st">"Opuesto"</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>prob_central <span class="ot">&lt;-</span> tabla_posicion<span class="sc">$</span>probabilidad[tabla_posicion<span class="sc">$</span>posicion <span class="sc">==</span> <span class="st">"Central"</span>]</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tamaño de la muestra</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>tamano_muestra <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># La cantidad q queremos de cada</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>evento_interes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicamos la fórmula de la distribución multinomial para calcular la probabilidad</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>probabilidad_evento <span class="ot">&lt;-</span> <span class="fu">dmultinom</span>(evento_interes, <span class="at">size =</span> tamano_muestra, <span class="at">prob =</span> <span class="fu">c</span>(prob_receptor, prob_opuesto, prob_central))</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar la probabilidad</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>probabilidad_evento</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.006319909</code></pre>
+</div>
+</div>
+</section>
+<section id="quinto-paso" class="level3">
+<h3 class="anchored" data-anchor-id="quinto-paso">Quinto paso</h3>
+<p>Con las variables cuantitativas de tu base de datos, ajusta un modelo de regresión multivariante en la forma:</p>
+<p><span class="math display">\[Y=\beta_0+\beta_1 X_1+ \cdots + \beta_p X_p + \epsilon\]</span> Donde <span class="math inline">\(Y\)</span> es la variable cuantitativa que deseas explicar en función del resto de variables cuantitativas registradas. Además, calcula la función de score e interpreta su resultado en el contexto del problema.</p>
+<p>Nuestra <span class="math inline">\(Y\)</span> será la variable dependiente, que es el total de puntos anotados (variable cuantitativa), e intentaremos explicarla en función de las otras variables cuantitativas: horas de entrenamiento, altura de ataque y velocidad.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo de regresión lineal múltiple</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(puntos_anotados <span class="sc">~</span> horas_entrenamiento <span class="sc">+</span> altura_ataque <span class="sc">+</span> velocidad, <span class="at">data =</span> rendimiento_voleibol)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = puntos_anotados ~ horas_entrenamiento + altura_ataque + 
+    velocidad, data = rendimiento_voleibol)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-9.031 -2.281  0.086  2.259  9.969 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)         -46.94888   27.35016  -1.717   0.0893 .
+horas_entrenamiento   0.23275    0.14254   1.633   0.1058  
+altura_ataque         0.18659    0.09219   2.024   0.0457 *
+velocidad             0.93225    0.69957   1.333   0.1858  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.354 on 96 degrees of freedom
+Multiple R-squared:  0.2027,    Adjusted R-squared:  0.1778 
+F-statistic: 8.136 on 3 and 96 DF,  p-value: 6.985e-05</code></pre>
+</div>
+</div>
+<p>Es interesante ver que en este caso, el p-valor relacionado con las horas de entrenamiento es mayor a 0.05 en diferencia de cuando hemos aplicado la regresión lineal simple. Esto se debe a que lo estamos calculando con otras variables y hace que ésta se vuelva más débil y además puede que existe una correlación entre ellas. En definitiva, en este caso tendríamos que concluir que el total de horas de entrenamiento no está correlacionado con los puntos anotados por partido.</p>
+<p>En cambio el p-valor considerando la altura de ataque máxima sí es menor a 0.05 pudiendo afirmar que tienen una correlación.</p>
+<p>En cuanto a la velocidad, como el p-valor es mayor al 0.05, no podemos afirmar que haya la correlación que se podría esperar.</p>
+<p>En R, la función de score no se calcula directamente como tal, pero se puede observar su comportamiento a través de los residuos del modelo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular los residuos</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>residuos <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(residuos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           1            2            3            4            5            6 
+ 0.341345014  9.968671957  0.009378636 -0.925265585  1.920065483 -1.860874802 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(modelo), <span class="fu">residuals</span>(modelo), </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Gráfico de residuos vs. valores predichos"</span>, </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Valores predichos"</span>, <span class="at">ylab =</span> <span class="st">"Residuos"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Taller_repas_parcial_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Si los residuos estuviesn dispersados alrededor del cero, sugerirí que el modelo es adecuado, como no lo estan, no podemos afirmarlo. De echo, vemos que tenemos valores elevados. Así que no tenemos una relación lineal.</p>
+</section>
+<section id="sexto-paso" class="level3">
+<h3 class="anchored" data-anchor-id="sexto-paso">Sexto paso</h3>
+<p>Realiza un contraste de hipótesis de dos medias multivariante que sea relevante para tu problema. Por ejemplo, podrías evaluar si el vector de medias de la variable cuantitativa de interés <span class="math inline">\(Y\)</span> es el mismo para dos niveles distintos de la variable no cuantitativa que modelaste como multinomial en el paso anterior. Ejecuta el contraste tanto teóricamente como con la función hotelling.test en R. Escribe la conclusión del contraste en el contexto de tu problema.</p>
+<p>Vamos a evaluar si el total de puntos que anota un jugador por partido tiene que ver con la posición en que juega. Cabe destacar que el estudio teòrico está hecho anteriormente con una anova NO multivariante. Haremos también la anova multivariante en este caso.</p>
+<p>Contraste de forma teórica con Anova multivariante:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>grupo_posicion <span class="ot">&lt;-</span> rendimiento_voleibol<span class="sc">$</span>posicion</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>variables_cuantitativas <span class="ot">&lt;-</span> rendimiento_voleibol[, <span class="fu">c</span>(<span class="st">"horas_entrenamiento"</span>, <span class="st">"altura_ataque"</span>, <span class="st">"velocidad"</span>, <span class="st">"puntos_anotados"</span>)]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizamos el modelo MANOVA</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>modelo_manova <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados) <span class="sc">~</span> grupo_posicion, <span class="at">data =</span> rendimiento_voleibol)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumen del modelo MANOVA</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_manova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Df  Pillai approx F num Df den Df Pr(&gt;F)
+grupo_posicion  2 0.03115  0.37576      8    190 0.9325
+Residuals      97                                      </code></pre>
+</div>
+</div>
+<p>Como el p-valor es muy elevado, esto indica que no hay diferencias significativas entre las medias multivariantes de los grupos. Es decir, que aceptamos la hipótesis nula: las medias de los grupos son iguales.</p>
+<p>Veamos ahora con la función hotelling.test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>datos_receptor <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Receptor"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>datos_opuesto <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Opuesto"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>datos_central <span class="ot">&lt;-</span> rendimiento_voleibol <span class="sc">%&gt;%</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posicion <span class="sc">==</span> <span class="st">"Central"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horas_entrenamiento, altura_ataque, velocidad, puntos_anotados)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar la prueba de Hotelling para comparar las medias multivariantes</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>test_hotelling_rc <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_receptor, datos_central)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>test_hotelling_ro <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_receptor, datos_opuesto)</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>test_hotelling_co <span class="ot">&lt;-</span> <span class="fu">hotelling.test</span>(datos_central, datos_opuesto)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar los resultados del contraste</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>test_hotelling_rc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test stat:  1.506 
+Numerator df:  4 
+Denominator df:  60 
+P-value:  0.8371 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>test_hotelling_ro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test stat:  0.76803 
+Numerator df:  4 
+Denominator df:  60 
+P-value:  0.9464 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>test_hotelling_co</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test stat:  2.2388 
+Numerator df:  4 
+Denominator df:  65 
+P-value:  0.7105 </code></pre>
+</div>
+</div>
+<p>Como todos los p-valor son grandes, no podmeos rechazar la hipótesis nula, es decir, no encontramos evidencias suficientes para concluir que hay una gran diferencia entre las medias de las variables de puntos anotados entre los receptores y los centrales y los opuestos.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
